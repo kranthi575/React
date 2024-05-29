@@ -2,6 +2,7 @@ import "../../index.css";
 import React from "react";
 import BodyContainer from "./BodyContainer";
 import { Link } from "react-router-dom";
+import useCheckOnlineStatus from "../customhooks/useCheckOnlineStatus";
 const Header=()=>{
     const [status,setStatus]=React.useState("SignOn");
     const signOnButton=()=>{
@@ -14,6 +15,7 @@ const Header=()=>{
         </div>
         <div className="flex items-center">
         <ul className="flex m-10 p-5">
+              <li><useCheckOnlineStatus/></li>
                <li className="px-5" ><Link to="/">Home</Link> </li>
                <li className="px-5" ><a href="">Search</a></li>
                <li className="px-5" ><a href="">Offers</a></li>
