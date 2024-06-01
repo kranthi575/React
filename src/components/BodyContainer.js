@@ -24,7 +24,7 @@ const BodyContainer=()=>{
         const resDataJson= await resData.json();
         //console.log("this is original json");
        // console.log(resDataJson);
-       console.log(resDataJson);
+       //console.log(resDataJson);
         const  restaurantData=resDataJson.data.cards[4].card.card.gridElements.infoWithStyle.restaurants;
       //  console.log("this data is from Body Container");
        //console.log(restaurantData);
@@ -39,7 +39,7 @@ const BodyContainer=()=>{
         <input type="text" className="border border-solid border-black" onChange={(event)=>{setsearchText(event.target.value)}}></input>
                 <button className="px-2 border border-black rounded hover:bg-amber-200 " value={searchText} onClick={()=>{
                         const filterresData=resFilterData.filter((foodcard)=>foodcard.info.name.toLowerCase().includes(searchText.toLowerCase()));
-                        console.log("Search clicked");
+                       // console.log("Search clicked");
                         
                         setresFilterData(filterresData);
                 }}> search</button>

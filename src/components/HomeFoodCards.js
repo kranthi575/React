@@ -5,7 +5,7 @@ const HomeFoodCards=(restaurantData)=>{
    // console.log("this is homefoodcard data::");
    // console.log(restaurantData);
     const restaurantID=restaurantData.info.id;
-    console.log(restaurantData)
+    //console.log(restaurantData)
    // console.log("the home foodcard restaurant id is",restaurantID);
     
     const url=swiggyRestaurantImgURL+restaurantData.info.cloudinaryImageId;

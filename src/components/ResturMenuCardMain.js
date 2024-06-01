@@ -1,18 +1,27 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ResturMenuCard from "./ResturMenuCard";
-const ResturMenuCardMain=({category})=>{
+const ResturMenuCardMain=({index,accordStatus,setshowUphandleClick,category})=>{
 
     //const [resturCatMenuData,setresturCatMenuData]=useState(null);
-    const [accordStatus,setaccordStatus]=useState(false);
-    console.log("this is ResturMenuCardMain comp..")
-    console.log(category?.card?.["card"]?.itemCards.length);
+    //const [accordStatus,setaccordStatus]=useState(false);
+   // console.log("this is ResturMenuCardMain comp..")
+    //console.log(category?.card?.["card"]?.itemCards.length);
     const cardTitle=category?.card?.["card"]?.title;
     const cardLength=category?.card?.["card"]?.itemCards.length;
     const resturCatMenuData=category?.card?.["card"]?.itemCards;
-    console.log(resturCatMenuData)
+    //console.log(resturCatMenuData)
     if(accordStatus){
-        console.log("false")
+       // console.log("false")
+    }
+
+    const handleArrowClick=(param)=>{
+        setshowUphandleClick(param);
+       // console.log(param)
+    }
+    
+    const handleAccordStatus=()=>{
+        accordStatus?handleArrowClick(null):handleArrowClick(index);
     }
     return <>
    
@@ -20,7 +29,7 @@ const ResturMenuCardMain=({category})=>{
 
         <div className="flex justify-between m-2 ">    
             <span className="font-bold text-l ml-2">{cardTitle}({cardLength})</span>
-            <span className="font-bold mr-6"><button onClick={()=>{(accordStatus)? setaccordStatus(false):setaccordStatus(true)}}>{(accordStatus)? "⬆️":"⬇"}</button></span> 
+            <span className="font-bold mr-6"><button onClick={()=>{handleAccordStatus();}}>{(accordStatus)? "⬆️":"⬇"}</button></span> 
 
         </div>
         <div className="m-10">
@@ -28,7 +37,7 @@ const ResturMenuCardMain=({category})=>{
             (accordStatus) ?
 
             resturCatMenuData.map((foodItem)=>{
-                console.log(foodItem);
+              //  console.log(foodItem);
                return <ResturMenuCard key={foodItem.card.info.id} {...foodItem.card.info} />
             })
             :

@@ -3,13 +3,17 @@ import { useState,useEffect } from "react";
 import ResturMenuCard from "./ResturMenuCard";
 import constants from "../utils/constants";
 import ResturMenuCardMain from "./ResturMenuCardMain";
+import CartContextProvider from "../utils/CartContextProvider";
 
 const ResturMenu=()=>{
 
     const [resturMenuData,setResturIndivData]=useState(null);
     const [resturName,setresturName]=useState();
     const {resturID}=useParams();
-    const swiggyIndividualResturData=swiggyRestaurantMenuData+resturID;    
+    const swiggyIndividualResturData=swiggyRestaurantMenuData+resturID;   
+    
+    const [showIndex,setshowIndex]=useState(0);
+    
     useEffect(()=>{
         fetchData();}
     ,[]);
@@ -19,41 +23,33 @@ const ResturMenu=()=>{
     const resturMenuData=resturIndividualDataJson.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards[2].card.card.itemCards;
     const resturMenuDataName=resturIndividualDataJson.data.cards[0].card.card.text;
     const resturTotalMenuData=resturIndividualDataJson.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards;
-    console.log("ResturTotalMenuData");
-    console.log(resturTotalMenuData);
-   const catList=resturTotalMenuData.filter((card)=>{
+    
+    const catList=resturTotalMenuData.filter((card)=>{
         if(card?.card?.["card"]?.["@type"] === "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"){ 
-            console.log(card?.card?.["card"]?.["title"]);
+            //console.log(card?.card?.["card"]?.["title"]);
             return card?.card?.["card"]?.["title"]}
     });
-    console.log("catList")
-    console.log(catList);
-  /* const catList=resturTotalMenuData.filter((card)=>{console.log(card.card)})
-    console.log("catList");
-    console.log(catList);
-    console.log("end of catList");*/
-    //console.log("data from menu card:")
-    //console.log(resturIndividualDataJson)
-  // console.log(resturMenuDataName);
-    setresturName(resturMenuDataName);
-   // setResturIndivData(resturMenuData); <ResturMenuCard key={foodItem.card.info.id} {...foodItem.card.info} /> 
-   //setting Catergory wise data 
-    setResturIndivData(catList);
-}
-if(resturMenuData===null)
-return <><h2>Page is loading...</h2></>
 
-return<>
+    setresturName(resturMenuDataName);
+    setResturIndivData(catList);
+    }
+    function setshowUphandleClick(showUpIndex){
+        setshowIndex(showUpIndex);
+    }
+    if(resturMenuData===null)
+    return <><h2>Page is loading...</h2></>
+
+    return<>
         
         <h2 className="font-bold text-[28px] px-[365px] m-10">{resturName}</h2>
 
        { 
         
         resturMenuData?.map((category,index)=>{
-            console.log("this is from ::ResturMenu Component::");
-            console.log(category);
         return <div className="flex justify-center space-y-10">
-            <ResturMenuCardMain key={index} category={category}/>
+        <CartContextProvider>
+            <ResturMenuCardMain key={index} index={index} accordStatus={index==showIndex? true:false} setshowUphandleClick={setshowUphandleClick} category={category}/>
+        </CartContextProvider>
         </div>
         })}
         
