@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ResturMenuCard from "./ResturMenuCard";
-const ResturMenuCardMain=({index,accordStatus,setshowUphandleClick,category})=>{
+const ResturMenuCardMain=({resturName,resturID,index,accordStatus,setshowUphandleClick,category})=>{
 
     //const [resturCatMenuData,setresturCatMenuData]=useState(null);
     //const [accordStatus,setaccordStatus]=useState(false);
@@ -38,7 +38,7 @@ const ResturMenuCardMain=({index,accordStatus,setshowUphandleClick,category})=>{
 
             resturCatMenuData.map((foodItem)=>{
               //  console.log(foodItem);
-               return <ResturMenuCard key={foodItem.card.info.id} {...foodItem.card.info} />
+               return <ResturMenuCard resturName={resturName} resturID={resturID} key={foodItem.card.info.id} resturMenuData={...foodItem.card.info} />
             })
             :
             null

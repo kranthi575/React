@@ -2,9 +2,15 @@ import {  useState } from "react";
 import CartContext from "./CartContext";
 const CartContextProvider=({children})=>{
 
+    const [activeResturant,setactiveResturant]=useState(null);
     const [cartItemList,setcartItemList]=useState([]);
     const [cartItemIdsSet,setcartItemIdsSet]=useState(new Set(['1']));
 
+    const settodefaultCart=()=>{
+        setactiveResturant(null);
+        setcartItemList([]);
+        setcartItemIdsSet(new Set['1']);
+    }
     const updatecartItemList=(cartitemtoAdd)=>{
         
         //checking id in ids to avoid duplicates.
@@ -71,7 +77,7 @@ const CartContextProvider=({children})=>{
     console.log(cartItemList);  
 
     return(
-        <CartContext.Provider value={{cartItemList,updatecartItemList,removecartItemList}}>
+        <CartContext.Provider value={{activeResturant,settodefaultCart,cartItemList,updatecartItemList,removecartItemList}}>
             {children}
         </CartContext.Provider>
     );

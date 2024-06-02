@@ -28,7 +28,7 @@ const Header=()=>{
                <li className="px-5" ><a href="">Offers</a></li>
                <li className="px-5" ><a href="">Help</a></li>
                <li className="px-5" ><a href="">Sign in</a></li>
-               <li className="px-5" ><a href="">Cart</a></li>
+               <li className="px-5" ><Link to="/checkout">Cart</Link></li>
           <Link to="/login"><li  id="statusButton" onClick={signOnButton}>{status}</li></Link>
         </ul>
         </div>

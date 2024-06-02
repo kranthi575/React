@@ -20,6 +20,9 @@ const ResturMenu=()=>{
     const fetchData=async ()=>{
     const resturIndividualData= await fetch(swiggyIndividualResturData);
     const resturIndividualDataJson=await resturIndividualData.json();
+    // console.log("ResturMenu");
+    // console.log(resturIndividualDataJson);
+    // console.log(resturIndividualDataJson.data.cards[4]);
     const resturMenuData=resturIndividualDataJson.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards[2].card.card.itemCards;
     const resturMenuDataName=resturIndividualDataJson.data.cards[0].card.card.text;
     const resturTotalMenuData=resturIndividualDataJson.data.cards[4].groupedCard.cardGroupMap.REGULAR.cards;
@@ -47,9 +50,9 @@ const ResturMenu=()=>{
         
         resturMenuData?.map((category,index)=>{
         return <div className="flex justify-center space-y-10">
-        <CartContextProvider>
-            <ResturMenuCardMain key={index} index={index} accordStatus={index==showIndex? true:false} setshowUphandleClick={setshowUphandleClick} category={category}/>
-        </CartContextProvider>
+        
+            <ResturMenuCardMain key={index} index={index} resturName={resturName} resturID={resturID} accordStatus={index==showIndex? true:false} setshowUphandleClick={setshowUphandleClick} category={category}/>
+        
         </div>
         })}
         

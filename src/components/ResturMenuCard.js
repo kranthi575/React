@@ -3,7 +3,9 @@ import Description from "./Description";
 import { useContext } from "react";
 import CartContext from "../utils/CartContext";
 
-    const ResturMenuCard=(resturMenuData)=>{
+    const ResturMenuCard=({resturName,resturID,resturMenuData})=>{
+    // console.log("ResturMenu")
+    // console.log(resturMenuData);
     const rating=resturMenuData.ratings.aggregatedRating.rating;
     const [isExpand,setisExpand]=useState(false);
     var [countItems,setcountItems]=useState(0);
@@ -19,7 +21,7 @@ import CartContext from "../utils/CartContext";
 //    // console.log(price);
     var descp=resturMenuData.description;
    // console.log(typeof descp);
-    const foodType=resturMenuData.itemAttribute.vegClassifier;
+    const foodType=resturMenuData?.itemAttribute?.vegClassifier;
     const imgurl=swiggyRestaurantImgURL+cloudinaryImageId;
 
     //adding order items to cart using usecontext i.e.., CartContext
@@ -28,6 +30,8 @@ import CartContext from "../utils/CartContext";
         setcountItems(++countItems);
         const quantity=countItems;
         const cartItemtoAdd={...resturMenuData,quantity};
+        cartItemtoAdd.resturName=resturName;
+        cartItemtoAdd.resturID=resturID;
         updatecartItemList(cartItemtoAdd);
 
     }

@@ -12,14 +12,17 @@ import ResturMenu from "./src/components/ResturMenu";
 import Carrers from "./src/components/Carrers";
 import UserContext, { UserProvider } from "./src/utils/UserContext";
 import ResturMenuCard from "./src/components/ResturMenuCard";
+import CartMain from "./src/components/CartMain";
+import CartContextProvider from "./src/utils/CartContextProvider";
 
 const AppLayout=()=>{
     
     return<>
     
+    <CartContextProvider>
         <Header/>
         <Outlet/>
-    
+    </CartContextProvider>
     </>
 }
 const appRouter=createBrowserRouter(
@@ -47,6 +50,10 @@ const appRouter=createBrowserRouter(
                 {
                     path:"/resturant/:resturID",
                     element:[<ResturMenu />,<Footer/>]
+                },
+                {
+                    path:"/checkout",
+                    element:[<CartMain/>,<Footer/>]
                 }
             ]
         }

@@ -24,10 +24,12 @@ const BodyContainer=()=>{
         const resDataJson= await resData.json();
         //console.log("this is original json");
        // console.log(resDataJson);
-       //console.log(resDataJson);
+       console.log(resDataJson);
+      console.log(resDataJson.data.cards[4].card.card)
+       
         const  restaurantData=resDataJson.data.cards[4].card.card.gridElements.infoWithStyle.restaurants;
-      //  console.log("this data is from Body Container");
-       //console.log(restaurantData);
+//        console.log("this data is from Body Container");
+//        console.log(restaurantData);
         setresFilterData(restaurantData);
         
      }
