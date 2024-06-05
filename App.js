@@ -15,14 +15,17 @@ import ResturMenuCard from "./src/components/ResturMenuCard";
 import CartMain from "./src/components/CartMain";
 import CartContextProvider from "./src/utils/CartContextProvider";
 
+import { Provider } from "react-redux";
+import appStore from "./src/utils/reduxjs/appStore";
 const AppLayout=()=>{
     
     return<>
-    
-    <CartContextProvider>
-        <Header/>
-        <Outlet/>
-    </CartContextProvider>
+    <Provider store={appStore}>   
+        <CartContextProvider>
+            <Header/>
+            <Outlet/>
+        </CartContextProvider>
+    </Provider>
     </>
 }
 const appRouter=createBrowserRouter(

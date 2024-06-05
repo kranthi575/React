@@ -2,47 +2,71 @@ import { useState } from "react";
 import Description from "./Description";
 import { useContext } from "react";
 import CartContext from "../utils/CartContext";
+import { useDispatch, useSelector } from "react-redux";
+import { addcartItem,removecartItem,addactiveResturId } from "../utils/reduxjs/cartSlice";
 
-    const ResturMenuCard=({resturName,resturID,resturMenuData})=>{
-    // console.log("ResturMenu")
-    // console.log(resturMenuData);
+const ResturMenuCard=({resturName,resturID,resturMenuData})=>{
+   
     const rating=resturMenuData.ratings.aggregatedRating.rating;
     const [isExpand,setisExpand]=useState(false);
     var [countItems,setcountItems]=useState(0);
     const cloudinaryImageId=resturMenuData.imageId;
     const name=resturMenuData.name;
     const price=resturMenuData.price/100;
-
-    //destructuring useContext params
-    const {cartItemList,updatecartItemList,removecartItemList}=useContext(CartContext);
-    //console.log(useContext(CartContext));
-//     console.log("resturMenuData::");
-//     console.log(resturMenuData);
-//    // console.log(price);
+    var quantity=countItems;
     var descp=resturMenuData.description;
-   // console.log(typeof descp);
     const foodType=resturMenuData?.itemAttribute?.vegClassifier;
     const imgurl=swiggyRestaurantImgURL+cloudinaryImageId;
 
-    //adding order items to cart using usecontext i.e.., CartContext
+    console.log(resturMenuData);
+    //implementing redux cartSlice
+    const {cartItems,activeResturantID,cartItemsIds}=useSelector((store)=>store.cart);
 
+    const cartDispatch=useDispatch();
+
+   
     const handleaddItem=()=>{
-        setcountItems(++countItems);
-        const quantity=countItems;
-        const cartItemtoAdd={...resturMenuData,quantity};
-        cartItemtoAdd.resturName=resturName;
-        cartItemtoAdd.resturID=resturID;
-        updatecartItemList(cartItemtoAdd);
+       
+        //validating things before adding to the cart
+        //check for active resturantId 1.null or matching with active resturant id 
+        //if true allow to add item to the cart (To-do)
+        //else show pop-up  need to clear cart,like to add new resturant items?
+
+        if(activeResturantID == null || activeResturantID == resturID){
+        //To-do
+        //resturitem json has to add to cart
+        //resturantID has to be updated as active resturant id
+        //check the cartItems Ids to avoid duplicates and update the items count
+        //track itemscount thorughout the application alive
+       //making activeresturant if null
+        if(activeResturantID==null){
+            cartDispatch(addactiveResturId(resturID));
+        }
+        
+        cartDispatch(addcartItem(resturMenuData));
+        
+
+        }
+
 
     }
 
     const handleremoveItem=()=>{
-        if(countItems!=0){
-            setcountItems(--countItems);
-            const quantity=countItems;
-            const cartItemtoRemove={...resturMenuData,quantity};
-            removecartItemList(cartItemtoRemove);
+
     
+        //Validate before removing items form cart
+        //check the quantity of item if zero ignore
+        //if quantity==1
+        //decrease the quantity to zero and remove item form the cart
+        //if quanitty>1
+        //decrease the quanity of the item
+
+        //checking for itemid
+        if(!cartItemsIds.has(resturMenuData.id)){
+            console.log("Item not avialable to remove from cart")
+        }
+        else{
+            cartDispatch(removecartItem(resturMenuData.id));
         }
     }
 
@@ -64,7 +88,7 @@ import CartContext from "../utils/CartContext";
         <div className="">
         <div className="absolute ml-5 bg-white w-20 h-10 rounded-md flex justify-between ">
                 <button className="text-xl" onClick={()=>{handleaddItem()}}>+</button>
-                <span className="p-1">{countItems}</span>
+                <span className="p-1">{quantity}</span>
                 <button className="text-xl" onClick={()=>{handleremoveItem()}}>-</button>
             </div>
             <img alt="Image not found" className=" mt-0 rounded-lg h-[180px] w-[180px] border border-black" src={imgurl}></img>

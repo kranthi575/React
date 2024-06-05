@@ -1,9 +1,11 @@
 import "../../index.css";
-import React from "react";
+import React, { useEffect } from "react";
 import { useContext } from "react";
 import BodyContainer from "./BodyContainer";
 import { Link } from "react-router-dom";
 import UseCheckOnlineStatus from "../customhooks/useCheckOnlineStatus";
+import { useDispatch, useSelector } from "react-redux";
+import { addItem } from "../utils/reduxjs/cartSlice";
 const Header=()=>{
 
     const [status,setStatus]=React.useState("SignOn");
@@ -12,6 +14,8 @@ const Header=()=>{
       
     }
 
+
+    //reading carSlice data
     //reading useContext data
     // const data=useContext(UserContext);
     // console.log(data.loggedInUser);

@@ -10,7 +10,7 @@ const CartItem=({cartItem})=>{
     var totalPriceOfItem=price*quantity;
     const foodType=cartItem?.itemAttribute?.vegClassifier;
 return<>
-<div className="flex flex-row">
+<div className="flex flex-row item-center">
     <div className="border border-b-1 rounded-lg border-gray-200 w-[450px] h-auto"> 
        <h1 className='font-bold'>{name}</h1>
        <p className='font text-gray-600 '>{foodType}</p>
