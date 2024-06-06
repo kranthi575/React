@@ -16,6 +16,9 @@ const Header=()=>{
 
 
     //reading carSlice data
+    const cartTotalItems=useSelector((store)=>store.cart.cartTotalItems);
+    const cartTotalPrice=useSelector((store)=>store.cart.cartTotalPrice);
+
     //reading useContext data
     // const data=useContext(UserContext);
     // console.log(data.loggedInUser);
@@ -32,7 +35,7 @@ const Header=()=>{
                <li className="px-5" ><a href="">Offers</a></li>
                <li className="px-5" ><a href="">Help</a></li>
                <li className="px-5" ><a href="">Sign in</a></li>
-               <li className="px-5" ><Link to="/checkout">Cart</Link></li>
+               <li className="px-5" ><Link to="/checkout">Cart {cartTotalItems!=0 ? `(${cartTotalItems}) - ₹${cartTotalPrice/100}` :null}</Link></li>
           <Link to="/login"><li  id="statusButton" onClick={signOnButton}>{status}</li></Link>
         </ul>
         </div>

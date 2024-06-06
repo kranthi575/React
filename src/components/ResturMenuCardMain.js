@@ -1,27 +1,47 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import ResturMenuCard from "./ResturMenuCard";
+import { useSelector } from "react-redux";
 const ResturMenuCardMain=({resturName,resturID,index,accordStatus,setshowUphandleClick,category})=>{
 
-    //const [resturCatMenuData,setresturCatMenuData]=useState(null);
-    //const [accordStatus,setaccordStatus]=useState(false);
-   // console.log("this is ResturMenuCardMain comp..")
-    //console.log(category?.card?.["card"]?.itemCards.length);
     const cardTitle=category?.card?.["card"]?.title;
     const cardLength=category?.card?.["card"]?.itemCards.length;
     const resturCatMenuData=category?.card?.["card"]?.itemCards;
-    //console.log(resturCatMenuData)
-    if(accordStatus){
-       // console.log("false")
-    }
+
+    //var quantityVal=0;
+    //reading data from cartslice
+    const {cartItems}=useSelector((store)=>store.cart);
 
     const handleArrowClick=(param)=>{
         setshowUphandleClick(param);
-       // console.log(param)
+      
     }
     
     const handleAccordStatus=()=>{
         accordStatus?handleArrowClick(null):handleArrowClick(index);
+    }
+
+    const handleQuantity=(itemId)=>{
+       console.log("handleQuantity::",itemId);
+       console.log("cartLength::",cartItems.length)
+      if(cartItems.length==0)
+       return 0;
+      
+      cartItems.map((cartItem)=>{
+        //console.log(cartItem.id,":::",itemId);
+        if(cartItem.id==itemId){
+        console.log("cartItem found");
+        console.log("cartItem quanity");
+        console.log(typeof cartItem.quantity);
+        console.log(cartItem.quantity)
+        return cartItem.quantity;
+        }
+        else{
+       // console.log("Cartzitem not found")
+        return 0;}
+        });
+
+        return 0;
     }
     return <>
    
@@ -38,7 +58,9 @@ const ResturMenuCardMain=({resturName,resturID,index,accordStatus,setshowUphandl
 
             resturCatMenuData.map((foodItem)=>{
               //  console.log(foodItem);
-               return <ResturMenuCard resturName={resturName} resturID={resturID} key={foodItem.card.info.id} resturMenuData={...foodItem.card.info} />
+              var quantityVal= handleQuantity(foodItem.card.info.id);
+              console.log("Quantity val",quantityVal);
+               return <ResturMenuCard resturName={resturName} resturID={resturID} key={foodItem.card.info.id} quantity={quantityVal} resturMenuData={...foodItem.card.info} />
             })
             :
             null

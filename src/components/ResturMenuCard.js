@@ -5,7 +5,7 @@ import CartContext from "../utils/CartContext";
 import { useDispatch, useSelector } from "react-redux";
 import { addcartItem,removecartItem,addactiveResturId } from "../utils/reduxjs/cartSlice";
 
-const ResturMenuCard=({resturName,resturID,resturMenuData})=>{
+const ResturMenuCard=({resturName,resturID,quantity,resturMenuData})=>{
    
     const rating=resturMenuData.ratings.aggregatedRating.rating;
     const [isExpand,setisExpand]=useState(false);
@@ -13,39 +13,42 @@ const ResturMenuCard=({resturName,resturID,resturMenuData})=>{
     const cloudinaryImageId=resturMenuData.imageId;
     const name=resturMenuData.name;
     const price=resturMenuData.price/100;
-    var quantity=countItems;
+   
     var descp=resturMenuData.description;
     const foodType=resturMenuData?.itemAttribute?.vegClassifier;
     const imgurl=swiggyRestaurantImgURL+cloudinaryImageId;
 
-    console.log(resturMenuData);
+   // console.log(resturMenuData);
     //implementing redux cartSlice
-    const {cartItems,activeResturantID,cartItemsIds}=useSelector((store)=>store.cart);
+    const {cartItems,activeResturant,cartItemsIds}=useSelector((store)=>store.cart);
 
     const cartDispatch=useDispatch();
 
    
+   console.log("Quantity",quantity);
     const handleaddItem=()=>{
        
         //validating things before adding to the cart
         //check for active resturantId 1.null or matching with active resturant id 
         //if true allow to add item to the cart (To-do)
         //else show pop-up  need to clear cart,like to add new resturant items?
-
-        if(activeResturantID == null || activeResturantID == resturID){
+        if(activeResturant.length==0 || activeResturant.includes(resturID)){
         //To-do
         //resturitem json has to add to cart
         //resturantID has to be updated as active resturant id
         //check the cartItems Ids to avoid duplicates and update the items count
         //track itemscount thorughout the application alive
        //making activeresturant if null
-        if(activeResturantID==null){
-            cartDispatch(addactiveResturId(resturID));
+       console.log([resturID,resturName]);
+        if(activeResturant.length==0){
+            cartDispatch(addactiveResturId([resturID,resturName]));
         }
-        
+        console.log("active resturID:",activeResturant);
         cartDispatch(addcartItem(resturMenuData));
         
 
+        }else{
+            console.log("Already you have active resturant..",activeResturant);
         }
 
 
@@ -62,7 +65,7 @@ const ResturMenuCard=({resturName,resturID,resturMenuData})=>{
         //decrease the quanity of the item
 
         //checking for itemid
-        if(!cartItemsIds.has(resturMenuData.id)){
+        if(!cartItemsIds.includes(resturMenuData.id)){
             console.log("Item not avialable to remove from cart")
         }
         else{
