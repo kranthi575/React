@@ -1,6 +1,4 @@
 import { createSlice } from "@reduxjs/toolkit";
-
-
 function handleaddcartItem(state,action){
 
     const newItem = action.payload;
@@ -75,7 +73,13 @@ const cartSlice=createSlice({
         removecartItem:(state,action)=>{
             handleremovecartItem(state,action);
         },
-        clearcartItems:(state,action)=>{state.cartItems.length==0},
+        clearcartItems:(state)=>{
+            state.cartItems=[];
+            state.activeResturant=[];
+            state.cartItemsIds=[];
+            state.cartTotalPrice=0;
+            state.cartTotalItems=0;
+            },
     }
 
 });

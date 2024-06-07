@@ -17,12 +17,14 @@ import CartContextProvider from "./src/utils/CartContextProvider";
 
 import { Provider } from "react-redux";
 import appStore from "./src/utils/reduxjs/appStore";
+import Login from "./src/components/access/Login";
+import Register from "./src/components/access/Register";
 const AppLayout=()=>{
     
     return<>
     <Provider store={appStore}>   
         <CartContextProvider>
-            <Header/>
+            
             <Outlet/>
         </CartContextProvider>
     </Provider>
@@ -36,27 +38,35 @@ const appRouter=createBrowserRouter(
             children:[
                 {   
                     path:"/",
-                    element:[<BodyContainer/>,<Footer/>]
+                    element:[<Header/>,<BodyContainer/>,<Footer/>]
                 },
                 {   
                     path:"/about",
-                    element:[<About/>,<Footer/>]
+                    element:[<Header/>,<About/>,<Footer/>]
                 },
                 {
                     path:"/contact",
-                    element:[<Contact/>,<Footer/>]
+                    element:[<Header/>,<Contact/>,<Footer/>]
                 },
                 {
                     path:"/carrers",
-                    element:[<Carrers/>,<Footer/>]
+                    element:[<Header/>,<Carrers/>,<Footer/>]
                 },
                 {
                     path:"/resturant/:resturID",
-                    element:[<ResturMenu />,<Footer/>]
+                    element:[<Header/>,<ResturMenu />,<Footer/>]
                 },
                 {
                     path:"/checkout",
-                    element:[<CartMain/>,<Footer/>]
+                    element:[<Header/>,<CartMain/>,<Footer/>]
+                },
+                {
+                    path:"/login",
+                    element:[<Login/>]
+                },
+                {
+                    path:"/register",
+                    element:[<Register/>],
                 }
             ]
         }

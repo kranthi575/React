@@ -58,9 +58,7 @@ const ResturMenuCardMain=({resturName,resturID,index,accordStatus,setshowUphandl
 
             resturCatMenuData.map((foodItem)=>{
               //  console.log(foodItem);
-              var quantityVal= handleQuantity(foodItem.card.info.id);
-              console.log("Quantity val",quantityVal);
-               return <ResturMenuCard resturName={resturName} resturID={resturID} key={foodItem.card.info.id} quantity={quantityVal} resturMenuData={...foodItem.card.info} />
+                  return <ResturMenuCard resturName={resturName} resturID={resturID} key={foodItem.card.info.id} resturMenuData={...foodItem.card.info} />
             })
             :
             null
