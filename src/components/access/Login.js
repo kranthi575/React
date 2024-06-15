@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Login = () => {
 
     const [userEmail,setuserEmail]=useState();
     const [userPassword,setuserPassword]=useState();
+    const [error,setError]=useState(null);
+    const navigate=useNavigate();
 
     const handleLoginSubmit=async (event)=>{
 
@@ -19,9 +21,14 @@ const Login = () => {
 
          });
 
-         const data= await response.json();
-
+         const data= await response.text();
          console.log(data);
+         if(data == "Valid user"){
+            navigate('/');
+         }else{
+            setError(data);
+            alert("Invalid credentials!!")
+         }
     }
 
    
@@ -61,6 +68,7 @@ const Login = () => {
           >
             Login
           </button>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
           <p className="text-center text-gray-600 mt-4">Or</p>
           <button
             className="w-full bg-gray-500 text-white py-2 rounded-lg hover:bg-gray-600 transition duration-300 mt-2"
